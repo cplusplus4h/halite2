@@ -7,7 +7,7 @@
     <property name="dir.workspace" value="/Users/emily/eclipse-workspace"/>
     <property name="dir.jarfile" value="/Users/emily/Documents/code/halite2/versions"/>
     <target name="create_run_jar">
-        <jar destfile="${dir.jarfile}/halite2-v1.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="${dir.jarfile}/halite2-v3.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="MyBot"/>
                 <attribute name="Class-Path" value="."/>
