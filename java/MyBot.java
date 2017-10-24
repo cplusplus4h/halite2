@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ public class MyBot {
 
 	public static void main(final String[] args) {
 		final Networking networking = new Networking();
-		final GameMap gameMap = networking.initialize("harshwinds v3");
+		final GameMap gameMap = networking.initialize("harshwinds v4");
 
 		final ArrayList<Move> moveList = new ArrayList<>();
 		for (;;) {
@@ -53,13 +54,13 @@ public class MyBot {
 					// Dock, if possible
 					if (undockedShip.canDock(planet)) {
 						DebugLog.addLog("-WILL DOCK " + planet.getId() + "-");
-						move = new DockMove(undockedShip, planet);
+						move = planet.dock(undockedShip);
 					}
 
 					// Otherwise attempt to move towards the planet
 					if (move == null) {
 						DebugLog.addLog("-ATTEMPTING TO MOVE TOWARDS " + planet.getId() + "-");
-						move = Navigation.navigateShipToDock(gameMap, undockedShip, planet, Constants.MAX_SPEED / 2);
+						move = Navigation.navigateShipToDock(gameMap, undockedShip, planet, Constants.MAX_SPEED);
 					}
 				}
 				
@@ -78,7 +79,7 @@ public class MyBot {
 						Ship enemyShip = enemyShipsByDistance.get(shipIndex);
 						
 						DebugLog.addLog("-ATTEMPTING TO MOVE TOWARDS " + enemyShip.getId() + "-");
-						move = Navigation.navigateShipTowardsTarget(gameMap, undockedShip, undockedShip.getClosestPoint(enemyShip), Constants.MAX_SPEED / 2, true, Constants.MAX_NAVIGATION_CORRECTIONS, Math.PI/180.0);
+						move = Navigation.navigateShipTowardsTarget(gameMap, undockedShip, undockedShip.getClosestPoint(enemyShip), Constants.MAX_SPEED, true, Constants.MAX_NAVIGATION_CORRECTIONS, Math.PI/180.0);
 					}
 				}
 				
